@@ -1,0 +1,11 @@
+ trigger updatecontacts on Contact (after insert) {
+     List<Contact> contactList = new List<Contact>();
+    for(Account acc trigger.new){
+        Contact c = new Contact (LastName='Default', FirstName ='Info', Email= 'info@websitedomain.tld', AccountId= account.Id );
+        contactList.add(c);
+    }
+    if (!contactList.isEmpty()){
+        insert contactList;
+    }
+            } 
+                
