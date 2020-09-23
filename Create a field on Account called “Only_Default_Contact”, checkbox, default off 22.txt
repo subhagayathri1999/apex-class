@@ -1,0 +1,26 @@
+trigger updateaccountss on Account (before insert) {
+    
+     List<Id> account = new List<Id>();
+    for (Contact c : trigger.new){
+        account.add(c.AccountId);
+    }
+    List<Contact> contact = new List<Contact>([Select Id from Contact where AccountId IN:account]);
+    system.debug(' contact contact List: ' + cnt);
+    Integer totalCount = c.Size();
+    system.debug('total count of contacts: ' + totalCount);
+    List<Account> accountList = new List<Account>([Select Id from Account where Id IN:account]);
+    system.debug('accountList: ' + accountList);
+    if (totalCount == 1){
+        for (Account acc : accountList){
+            acct.Only_Default_Contact__c = TRUE;
+            update acc;
+        }
+    }
+    else if (totalCount > 1){
+        for (Account acc : accountList){
+            acct.Only_Default_Contact__c = False;
+            update acc;
+        }
+    }
+
+}
