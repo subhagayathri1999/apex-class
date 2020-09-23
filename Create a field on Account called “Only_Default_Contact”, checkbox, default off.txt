@@ -1,11 +1,26 @@
- trigger updatecontacts on Contact (after insert) {
-     List<Contact> contactList = new List<Contact>();
-    for(Account acc trigger.new){
-        Contact c = new Contact (LastName='Default', FirstName ='Info', Email= 'info@websitedomain.tld', AccountId= account.Id );
-        contactList.add(c);
-    }
-    if (!contactList.isEmpty()){
-        insert contactList;
-    }
-            } 
+public class accountondefault {
+    public static void accountondefault (List<Account> accountList){
+        List<Contact> conList = new List<Contact>();
+        for(Account acc : accountList){
+            Contact contact = new Contact(AccountId = acc.Id);
+            
+            List<String> nameString = acc.Name.split(' ');
+            if(nameString.size()>0){
+                contact.LastName = nameString[0];
+            }
+            if(nameString.size()>1){
+                contact.FirstName = nameString[1];
                 
+                
+            }
+            contact.Email = 'info@websitedomain.tld';
+            
+            contact.Only_Default_Contact__c = TRUE;
+            conList.add(con);
+        }
+        update conList;
+    }
+}
+    
+
+}
