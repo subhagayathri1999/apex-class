@@ -1,0 +1,20 @@
+public class classprofile {
+    
+   public static void classprofile (list<Account> AccountId){
+        
+    List<Contact> lstcontact = new List<Contact> ([SELECT Id,FirstName,lastName,AccountId FROM contact WHERE AccountId IN: AccountId]);
+        
+      Map<Id, Account> mapAccountIdAccount = new Map<Id, Account>([SELECT Id, Website FROM Account WHERE Id IN :AccountId]);
+    List<Contact> lstContactsToUpdate = new List<Contact>();
+       
+        for(Contact obj : lstContact) {
+            Account objAccount = mapAccountId.get(obj.Account);
+            if(obj.FirstName != Null) {
+                String strFirstName = obj.FirstName.substring(0,1);
+                obj.profile__c = objAccount.website + '/' + strFirstName + obj.LastName;
+                lstContactsToUpdate.add(obj);
+            }
+        }
+            if(lstContactsToUpdate.size() > 0)
+                update lstContactsToUpdate;
+    }

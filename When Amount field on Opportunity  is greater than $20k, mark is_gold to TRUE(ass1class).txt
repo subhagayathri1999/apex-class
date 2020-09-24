@@ -1,0 +1,31 @@
+public class accountclass {
+    public static void AccountChangeEvent (list<opportunity> objlist1)
+    {   
+        list<Account> listAccounts = new list<Account>();
+          set<Id> setAccountIds = new set<Id>();
+    Map<Id, Opportunity> mapAccIdopp = new map<Id, Opportunity>();
+ 
+    for(Opportunity obj : objlist1) {
+        setAccountIds.add(obj.AccountId);
+    }        
+    
+    for(Opportunity obj:objlist1) {
+        mapAccIdopp.put(obj.AccountId,obj);        
+    }                
+    for(Account obj: [SELECT Id, is_gold__c FROM Account WHERE Id IN: setAccountId]){   
+        
+        if(mapAccIdopp.get(obj.Id).Amount > 20000) {   
+                   obj.is_gold__c = TRUE;
+            listAccounts.add(obj);
+        }
+   
+        else{ 
+             obj.is_gold__c = FALSE;
+        listAccounts.add(obj);
+    }
+    }
+    if(listAccounts.size() >0 )
+     update listAccounts;  
+    }
+
+}

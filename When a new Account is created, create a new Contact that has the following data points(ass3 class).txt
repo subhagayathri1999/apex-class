@@ -1,0 +1,42 @@
+public class contactemail {
+    
+    public static void defaultcontact(List<Account> accList){
+        
+		List<Contact> conList = new List<Contact>();
+    for(Account acc : accList) {
+			  Contact con = new Contact(AccountId = acc.Id);
+			  List<String> nameString = acc.Name.split(' ');
+			
+				 con.LastName = 'Default';
+			 
+				  con.FirstName = 'Info';
+				  
+			con.Email = 'info@websitedomain.tld';
+			
+			conList.add(con);
+        
+        
+		}
+		insert conList;		
+	}
+	public static void CheckboxOnAccount(List<Contact> contactList){
+    List<Account> accounts = new List<Account>();
+   Integer contactcount ;
+    for(Contact contact : contactList){
+        Account acc = [Select Id, Only_Default_Contact__c from Account where Id = :contact.AccountId];
+        String str = contact.AccountId;
+        contactcount = Database.countQuery('Select count() from Contact where AccountID = :string');
+        if(contactcount < 2	){ 
+            acc.Only_Default_Contact__c = TRUE;
+        } else{ 
+            
+        acc.Only_Default_Contact__c = FALSE;
+        }
+         
+       
+    
+    update accounts;
+}
+    }
+
+}
